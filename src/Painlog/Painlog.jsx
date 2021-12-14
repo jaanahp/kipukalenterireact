@@ -8,11 +8,11 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
     return (
 
         <>
-        <h3 onClick={() => setShowMore(!showMore)}>
-        {log.painIntensity}
+        <div class='notepage' onClick={() => setShowMore(!showMore)}>
+        Päivämäärä {log.logDate}
         <button className="button1" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
         <button className="button1" onClick={() => handleEditClick(log)}>Muokkaa</button>
-        </h3>
+        </div>
 
 
         {showMore && <div className="customerWindow">
@@ -20,7 +20,7 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
             <div>Kivun intensiteetti: {log.painIntensity}</div>
             <div>Kivun kesto: {log.duration}</div>
             <div>Lääkitys: {log.medication}</div>
-            <div>Sijainti: {log.locationiD}</div>
+            <div>Sijainti: {log.locationId}</div>
             <div>Aiheuttaja: {log.painTrigger}</div>
             <div>Kivun tyyppi: {log.painType}</div>
             <div>Lisätiedot: {log.notes}</div>

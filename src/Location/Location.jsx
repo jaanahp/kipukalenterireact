@@ -6,11 +6,12 @@ const Location = ({ location, handleDeleteClick, handleEditClick }) => {
     return (
 
         <>
-        <h3>
-        {location.locationName}
+        <div className='notepage'>
+        ID {location.locationId}
+        : {location.locationName}
         <button className="button1" onClick={() => handleDeleteClick(location.locationId)}>Poista</button>
         <button className="button1" onClick={() => handleEditClick(location)}>Muokkaa</button>
-        </h3>
+        </div>
         </>
 
 

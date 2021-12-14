@@ -12,7 +12,8 @@ const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setS
             var newLocation = {
                 locationName: newLocationName
             } 
-
+            console.log(newLocation)
+            
             LocationService
                 .create(newLocation)
                 .then(response => {

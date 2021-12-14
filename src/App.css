@@ -3,6 +3,7 @@ h3 {
   /* font-stretch: extra-condensed; */
   margin-right: 10px;
   margin-left: 10px;
+  font-size: 5px;
 }
 
 h1 {
@@ -15,12 +16,16 @@ h1 {
   margin-left: 10px;
 }
 
-
+.notepage {
+  width: 85%;
+  margin: 10px;
+}
 
 .otsikko {
   font-size: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin: 10px;
 }
 
 
@@ -83,8 +88,8 @@ h1 {
   .customerWindow {
     background-color: rgb(155, 196, 174);
     border-style: solid;
-    width: 85%;
-    margin: auto;
+    width:50%;
+    margin: 10px;
     border-radius: 30px;
   }
 

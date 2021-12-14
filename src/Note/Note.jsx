@@ -6,11 +6,12 @@ const Note = ({ note, handleDeleteClick, handleEditClick }) => {
     return (
 
         <>
-        <h3>
-        {note.noteText}
+        <div className='notepage'>
+        ID {note.noteId}
+        : {note.noteText}
         <button className="button1" onClick={() => handleDeleteClick(note.noteId)}>Poista</button>
         <button className="button1" onClick={() => handleEditClick(note)}>Muokkaa</button>
-        </h3>
+        </div>
         </>
 
 

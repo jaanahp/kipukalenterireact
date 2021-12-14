@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import '../App.css'
-import PainlogService from '../services/painlog'
+import LogService from '../services/painlog'
 
 const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowMessage, setIsPositive }) => {
 
         // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newLogDate, setNewLogDate] = useState('')
         const [newPainIntensity, setNewPainIntensity] = useState('')
-        // const [newStartTime, setNewStartTime] = useState('')
-        // const [newEndTime, setNewEndTime] = useState('')
+        const [newStartTime, setNewStartTime] = useState('')
+        const [newEndTime, setNewEndTime] = useState('')
         const [newMedication, setNewMedication] = useState('')
         const [newDuration, setNewDuration] = useState('')
         const [newLocationInfo, setNewLocationInfo] = useState('')
@@ -20,7 +20,7 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
         const submitLog = (event) => {
             event.preventDefault()
             var newLog = {
-                logDate: newLogDate,
+                // logDate: newLogDate,
                 painIntensity: newPainIntensity,
                 // startTime: newStartTime,
                 // endTime: newEndTime,
@@ -31,9 +31,10 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                 painType: newPainType,
                 locationId: newLocationId,
                 notes: newNotes
-            } 
+            }
+            console.log(newLog) //tämän saa logattua
 
-            PainlogService
+            LogService
                 .create(newLog)
                 .then(response => {
 
@@ -67,20 +68,20 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
 
         return (
             <form onSubmit={submitLog}>
-                <div>
+                {/* <div>
                     <input type="datetime" value={newLogDate} placeholder="Päivämäärä"
                     onChange={({ target }) => setNewLogDate(target.value)}/>
-                </div>
+                </div> */}
                 <div>
                     <input type="number" value={newPainIntensity} placeholder="Intensiteetti" min="1" max="10"
                     onChange={({ target }) => setNewPainIntensity(target.value)}/>
                 </div>
                 {/* <div>
-                    <input type="time" value={newStartTime} placeholder="Alkuaika"
+                    <input type="datetime" value={newStartTime} placeholder="Alkuaika"
                     onChange={({ target }) => setNewStartTime(target.value)}/>
                 </div>
                 <div>
-                    <input type="time" value={newEndTime} placeholder="Loppuaika"
+                    <input type="datetime" value={newEndTime} placeholder="Loppuaika"
                     onChange={({ target }) => setNewEndTime(target.value)}/>
                 </div> */}
                 <div>

@@ -6,10 +6,10 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
 
         // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newLogId, setNewLogId] = useState(changedLog.logId)
-        const [newLogDate, setNewLogDate] = useState(changedLog.logDate)
+        // const [newLogDate, setNewLogDate] = useState(changedLog.logDate)
         const [newPainIntensity, setNewPainIntensity] = useState(changedLog.painIntensity)
-        const [newStartTime, setNewStartTime] = useState(changedLog.startTime)
-        const [newEndTime, setNewEndTime] = useState(changedLog.endTime)
+        // const [newStartTime, setNewStartTime] = useState(changedLog.startTime)
+        // const [newEndTime, setNewEndTime] = useState(changedLog.endTime)
         const [newMedication, setNewMedication] = useState(changedLog.medication)
         const [newLocationInfo, setNewLocationInfo] = useState(changedLog.locationInfo)
         const [newPainTrigger, setNewPainTrigger] = useState(changedLog.painTrigger)
@@ -21,10 +21,10 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
         const submitLog = (event) => {
             event.preventDefault()
             var changedLog = {
-                logDate: newLogDate,
+                // logDate: newLogDate,
                 painIntensity: newPainIntensity,
-                startTime: newStartTime,
-                endTime: newEndTime,
+                // startTime: newStartTime,
+                // endTime: newEndTime,
                 medication: newMedication,
                 locationInfo: newLocationInfo,
                 painTrigger: newPainTrigger,
@@ -34,7 +34,7 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
             } 
 
             LogService
-            .update(changedLog) //put pyyntö backendille, viittaa update-metodiin customer.js:ssä
+            .update(changedLog) 
             .then(response => {
     
                 if (response.status === 200) {
@@ -76,25 +76,25 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
                 <div>
                     <p>ID: {newLogId}</p>
                 </div>
-                <div>
+                {/* <div>
                     <input type="datetime" value={newLogDate} placeholder={changedLog.logDate}
                     onChange={({ target }) => setNewLogDate(target.value)}/>
-                </div>
+                </div> */}
                 <div>
                     <label>Kivun intensiteetti 1 - 10</label><br></br>
                     <input type="number" value={newPainIntensity} placeholder={changedLog.painIntensity} min="1" max="10"
                     onChange={({ target }) => setNewPainIntensity(target.value)}/>
                 </div>
-                <div>
+                {/* <div>
                     <label>Kivun alkamisaika</label><br></br>
-                    <input type="datetime" value={newStartTime} placeholder={changedLog.startTime}
+                    <input type="time" value={newStartTime} placeholder={changedLog.startTime}
                     onChange={({ target }) => setNewStartTime(target.value)}/>
                 </div>
                 <div>
                     <label>Kivun loppumisaika</label><br></br>
-                    <input type="datetime" value={newEndTime} placeholder={changedLog.endTime}
+                    <input type="time" value={newEndTime} placeholder={changedLog.endTime}
                     onChange={({ target }) => setNewEndTime(target.value)}/>
-                </div>
+                </div> */}
                 <div>
                     <label>Lääkitys</label><br></br>
                     <input type="text" value={newMedication} placeholder={changedLog.medication} maxLength="250"
