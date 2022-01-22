@@ -1,6 +1,5 @@
 h3 {
   text-align: left;
-  /* font-stretch: extra-condensed; */
   margin-right: 10px;
   margin-left: 10px;
   font-size: 5px;
@@ -28,6 +27,13 @@ h1 {
   margin: 10px;
 }
 
+.suodatin {
+  font-size: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 10px;
+}
+
 
 .App {
     text-align: center;
@@ -48,6 +54,7 @@ h1 {
 
 .navbarOma {
   background-color: rgb(162, 187, 174);
+  width: 100%;
 }
 
 /* button {

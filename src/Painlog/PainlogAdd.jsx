@@ -1,31 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import LogService from '../services/painlog'
+import LocationService from '../services/location'
 
 const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowMessage, setIsPositive }) => {
 
         // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
-        const [newLogDate, setNewLogDate] = useState('')
         const [newPainIntensity, setNewPainIntensity] = useState('')
         const [newStartTime, setNewStartTime] = useState('')
         const [newEndTime, setNewEndTime] = useState('')
         const [newMedication, setNewMedication] = useState('')
-        const [newDuration, setNewDuration] = useState('')
         const [newLocationInfo, setNewLocationInfo] = useState('')
         const [newPainTrigger, setNewPainTrigger] = useState('')
         const [newPainType, setNewPainType] = useState('')
         const [newLocationId, setNewLocationId] = useState('')
         const [newNotes, setNewNotes] = useState('')
+        const [locations, setLocations] = useState([])
+
+        useEffect(() => {
+            LocationService
+                .getAll()
+                .then(data => {
+                    console.log(data)
+                    setLocations(data)
+                })
+        }, [])
 
         const submitLog = (event) => {
             event.preventDefault()
             var newLog = {
-                // logDate: newLogDate,
                 painIntensity: newPainIntensity,
-                // startTime: newStartTime,
-                // endTime: newEndTime,
+                startTime: newStartTime,
+                endTime: newEndTime,
                 medication: newMedication,
-                duration: newDuration,
                 locationInfo: newLocationInfo,
                 painTrigger: newPainTrigger,
                 painType: newPainType,
@@ -68,33 +75,26 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
 
         return (
             <form onSubmit={submitLog}>
-                {/* <div>
-                    <input type="datetime" value={newLogDate} placeholder="Päivämäärä"
-                    onChange={({ target }) => setNewLogDate(target.value)}/>
-                </div> */}
                 <div>
                     <input type="number" value={newPainIntensity} placeholder="Intensiteetti" min="1" max="10"
                     onChange={({ target }) => setNewPainIntensity(target.value)}/>
                 </div>
-                {/* <div>
-                    <input type="datetime" value={newStartTime} placeholder="Alkuaika"
+                <div>
+                    <input type="datetime-local" value={newStartTime} placeholder="Alkuaika"
                     onChange={({ target }) => setNewStartTime(target.value)}/>
                 </div>
                 <div>
-                    <input type="datetime" value={newEndTime} placeholder="Loppuaika"
+                    <input type="datetime-local" value={newEndTime} placeholder="Loppuaika"
                     onChange={({ target }) => setNewEndTime(target.value)}/>
-                </div> */}
-                <div>
-                    <input type="number" value={newDuration} placeholder="Kesto"
-                    onChange={({ target }) => setNewDuration(target.value)}/>
                 </div>
                 <div>
                     <input type="text" value={newMedication} placeholder="Otetut lääkkeet" maxLength="250"
                     onChange={({ target }) => setNewMedication(target.value)}/>
                 </div>
                 <div>
-                    <input type="number" value={newLocationId} placeholder="Sijainti" min="100" max="1000"
-                    onChange={({ target }) => setNewLocationId(target.value)}/>
+                <select value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                    {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
+                </select>
                 </div>
                 <div>
                     <input type="text" value={newLocationInfo} placeholder="Sijainnin lisätieto"
@@ -124,5 +124,6 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
         ) //return päättyy
 
 } //LoginAdd päättyy
+
 
 export default PainlogAdd

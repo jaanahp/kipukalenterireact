@@ -39,7 +39,7 @@ const LocationList = () => {
                         // Poistetaan login statesta
                         setLocations(locations.filter(filtered => filtered.locationId !== id))
 
-                        setMessage(`${location.locationName}:n poisto onnistui!`)
+                        setMessage(`Sijainnin ${location.locationName} poisto onnistui!`)
                         setIsPositive(true)
                         setShowMessage(true)
                         window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)

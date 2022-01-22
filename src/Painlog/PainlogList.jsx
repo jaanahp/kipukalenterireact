@@ -5,11 +5,13 @@ import Painlog from './Painlog'
 import Message from '../Message'
 import PainlogAdd from './PainlogAdd'
 import PainlogEdit from './PainlogEdit'
+import LocationService from '../services/location'
 
 const PainlogList = () => {
 
     const [painlogs, setPainlogs] = useState([]) // tietotyyppi on taulukko
     const [addPainlog, setAddPainlog] = useState(false)
+
 
     const [editPainlog, setEditPainlog] = useState(false)
     const [changedLog, setChangedLog] = useState({}) 
@@ -18,15 +20,36 @@ const PainlogList = () => {
     const [isPositive, setIsPositive] = useState(false)
     const [message, setMessage] = useState('')
 
+    const [locations, setLocations] = useState([])
+    const [selectLocation, setSelectLocation] = useState("Kaikki");
+
     useEffect(() => {
         PainlogService
             .getAll()
             .then(data => {
-                console.log(data)
-                setPainlogs(data)
+                if (selectLocation === "Kaikki") {
+                    console.log(data)
+                    setPainlogs(data)
+                } else {
+                    console.log(selectLocation) //tämä onnistuu oikein
+                    console.log(data)
+                    setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
+                    console.log(painlogs) 
+                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
+                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+                    setPainlogs(filtered)
+                }
             })
-    }, [addPainlog, editPainlog])
+    }, [addPainlog, editPainlog, selectLocation])
 
+    useEffect(() => {
+        LocationService
+            .getAll()
+            .then(data => {
+                console.log(data)
+                setLocations(data)
+            })
+    }, [])
 
     const handleDeleteClick = id => {
         const log = painlogs.find(log => log.logId === id)
@@ -81,7 +104,8 @@ const PainlogList = () => {
         return (
         <>
             <h1 className="otsikko"> Kipumerkinnät
-            <button className="nappi" onClick={() => setAddPainlog(true)}>Lisää uusi</button></h1>
+            <button className="nappi" onClick={() => setAddPainlog(true)}>Lisää</button>
+            </h1>
             { showMessage && <Message message={message} isPositive={isPositive} /> }
             <p>Lataa...</p>
         </>
@@ -92,9 +116,20 @@ const PainlogList = () => {
         return (
             <>
                 <h1 className="otsikko"> Kipumerkinnät
-                <button className="nappi" onClick={() => setAddPainlog(true)}>Lisää</button></h1>
+                <button className="nappi" onClick={() => setAddPainlog(true)}>Lisää</button>
+                </h1>
+
+                <div className="suodatin">
+                <select value={selectLocation} onChange={e=>setSelectLocation(e.target.value)}>
+                <option value="Kaikki">Kaikki</option>
+                {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
+                </select>
+                </div>
+
                 { showMessage && <Message message={message} isPositive={isPositive} /> }
                 {painlogs.map(log => <Painlog key={log.logId} log={log} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} /> )}
+
+                {/* {locations.map(location => <Painlog location={location} />)} */}
             </>
         ) //return
     } //if

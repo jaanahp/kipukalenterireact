@@ -1,37 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import LogService from '../services/painlog'
+import LocationService from '../services/location'
 
 const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setShowMessage, setIsPositive, changedLog }) => {
 
         // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newLogId, setNewLogId] = useState(changedLog.logId)
-        // const [newLogDate, setNewLogDate] = useState(changedLog.logDate)
         const [newPainIntensity, setNewPainIntensity] = useState(changedLog.painIntensity)
-        // const [newStartTime, setNewStartTime] = useState(changedLog.startTime)
-        // const [newEndTime, setNewEndTime] = useState(changedLog.endTime)
+        const [newStartTime, setNewStartTime] = useState(changedLog.startTime)
+        const [newEndTime, setNewEndTime] = useState(changedLog.endTime)
         const [newMedication, setNewMedication] = useState(changedLog.medication)
         const [newLocationInfo, setNewLocationInfo] = useState(changedLog.locationInfo)
         const [newPainTrigger, setNewPainTrigger] = useState(changedLog.painTrigger)
         const [newPainType, setNewPainType] = useState(changedLog.painType)
         const [newLocationId, setNewLocationId] = useState(changedLog.locationId)
-        const [newLocationName, setNewLocationName] = useState(changedLog.locationName)
         const [newNotes, setNewNotes] = useState(changedLog.notes)
+
+        const [locations, setLocations] = useState([])
+
+        useEffect(() => {
+            LocationService
+                .getAll()
+                .then(data => {
+                    console.log(data)
+                    setLocations(data)
+                })
+        }, [])
 
         const submitLog = (event) => {
             event.preventDefault()
             var changedLog = {
-                // logDate: newLogDate,
+                logId: newLogId,
                 painIntensity: newPainIntensity,
-                // startTime: newStartTime,
-                // endTime: newEndTime,
+                startTime: newStartTime,
+                endTime: newEndTime,
                 medication: newMedication,
                 locationInfo: newLocationInfo,
                 painTrigger: newPainTrigger,
                 painType: newPainType,
                 locationId: newLocationId,
                 notes: newNotes
-            } 
+            }
+            console.log(changedLog) //tämän saa logattua
 
             LogService
             .update(changedLog) 
@@ -76,34 +87,35 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
                 <div>
                     <p>ID: {newLogId}</p>
                 </div>
-                {/* <div>
-                    <input type="datetime" value={newLogDate} placeholder={changedLog.logDate}
-                    onChange={({ target }) => setNewLogDate(target.value)}/>
-                </div> */}
                 <div>
                     <label>Kivun intensiteetti 1 - 10</label><br></br>
                     <input type="number" value={newPainIntensity} placeholder={changedLog.painIntensity} min="1" max="10"
                     onChange={({ target }) => setNewPainIntensity(target.value)}/>
                 </div>
-                {/* <div>
+                <div>
                     <label>Kivun alkamisaika</label><br></br>
-                    <input type="time" value={newStartTime} placeholder={changedLog.startTime}
+                    <input type="datetime-local" value={newStartTime} placeholder={changedLog.startTime}
                     onChange={({ target }) => setNewStartTime(target.value)}/>
                 </div>
                 <div>
                     <label>Kivun loppumisaika</label><br></br>
-                    <input type="time" value={newEndTime} placeholder={changedLog.endTime}
+                    <input type="datetime-local" value={newEndTime} placeholder={changedLog.endTime}
                     onChange={({ target }) => setNewEndTime(target.value)}/>
-                </div> */}
+                </div>
                 <div>
                     <label>Lääkitys</label><br></br>
                     <input type="text" value={newMedication} placeholder={changedLog.medication} maxLength="250"
                     onChange={({ target }) => setNewMedication(target.value)}/>
                 </div>
-                <div>
+                {/* <div>
                 <label>Kivun sijainti</label><br></br>
                     <input type="number" value={newLocationId} placeholder={changedLog.locationId}
                     onChange={({ target }) => setNewLocationId(target.value)}/>
+                </div> */}
+                <div>
+                <select value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                    {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
+                </select>
                 </div>
                 <div>
                 <label>Sijainnin lisätieto</label><br></br>
