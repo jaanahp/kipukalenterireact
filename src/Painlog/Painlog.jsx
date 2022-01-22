@@ -1,24 +1,19 @@
 import React, { useState } from 'react'
 import '../App.css'
+import LocationService from '../services/location'
 
 const Painlog = ({ log, location, handleDeleteClick, handleEditClick }) => {
 
     const [showMore, setShowMore] = useState(false)
-    const [startDate, setStartDate] = useState(log.startTime)
+
+    var dateStart = new Date(log.startTime).toLocaleDateString('fi-FI', {hour: '2-digit', minute: '2-digit'});
+    var dateEnd = new Date(log.endTime).toLocaleDateString('fi-FI', {hour: '2-digit', minute: '2-digit'});
 
     return (
 
         <>
         <div className='notepage' onClick={() => setShowMore(!showMore)}>
-        Sijainti: {log.locationId} :
-         Päivämäärä {log.startTime}
-         {/* Päivämäärä {startDate.toLocaleDateString('fi-FI')} */}
-         {/* {new Intl.DateTimeFormat("fi-FI", {
-             year: "numeric",
-             month: "long",
-             day: "2-digit"
-             }).format(startDate)} */}
-        {/* {new Intl.DateTimeFormat('fi-FI').format(startDate)} */}
+        Sijainti {log.locationId}: Alkamisaika: {dateStart}
         <button className="button1" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
         <button className="button1" onClick={() => handleEditClick(log)}>Muokkaa</button>
         </div>
@@ -27,7 +22,7 @@ const Painlog = ({ log, location, handleDeleteClick, handleEditClick }) => {
         {showMore && <div className="customerWindow">
             <div className="showMore">
             <div>Kivun intensiteetti: {log.painIntensity}</div>
-            <div>Loppumisaika: {log.endTime}</div>
+            <div>Loppumisaika: {dateEnd}</div>
             <div>Kivun kesto: {log.duration}</div>
             <div>Lääkitys: {log.medication}</div>
             <div>Sijainti: {log.locationId} </div>
