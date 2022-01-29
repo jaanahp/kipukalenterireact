@@ -93,6 +93,7 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                 </div>
                 <div>
                 <select value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                    <option value=""></option>
                     {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>
                 </div>
