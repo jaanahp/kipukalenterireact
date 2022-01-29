@@ -51,6 +51,8 @@ const PainlogList = () => {
             })
     }, [])
 
+    
+
     const handleDeleteClick = id => {
         const log = painlogs.find(log => log.logId === id)
         const confirm = window.confirm(`Haluatko todella poistaa merkinnän pysyvästi?`)
