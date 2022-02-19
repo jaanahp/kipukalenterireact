@@ -19,7 +19,9 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
             })
     }, [])
 
+    const id = log.locationId
     const location = locations.find(loc => loc.locationId === log.locationId)
+    // const locName = location.locationName
     const time = log.duration
     const [hours, minutes] = [Math.floor(time/60), time%60];
 
@@ -27,13 +29,15 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
 
         <>
         <div className='notepage' onClick={() => setShowMore(!showMore)}>
-        Alkamisaika: {dateStart}
-        <button className="button1" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
-        <button className="button1" onClick={() => handleEditClick(log)}>Muokkaa</button>
+        {dateStart}
+        <div className="buttons">
+        <button className="nappi2" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
+        <button className="nappi3" onClick={() => handleEditClick(log)}>Muokkaa</button>
+        </div>
         </div>
 
 
-        {showMore && <div className="customerWindow">
+        {showMore && <div className="lisatiedot">
             <div className="showMore">
             <div>Kivun intensiteetti: {log.painIntensity}</div>
             <div>Loppumisaika: {dateEnd}</div>

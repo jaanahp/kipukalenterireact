@@ -75,6 +75,7 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
 
         return (
             <form onSubmit={submitLog}>
+                <div className="lomake">
                 <div>
                     <input type="number" value={newPainIntensity} placeholder="Intensiteetti 1-10" min="1" max="10"
                     onChange={({ target }) => setNewPainIntensity(target.value)}/>
@@ -92,7 +93,7 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                     onChange={({ target }) => setNewMedication(target.value)}/>
                 </div>
                 <div>
-                <select value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                <select className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
                     <option value=""></option>
                     {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>
@@ -114,11 +115,11 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                     onChange={({ target }) => setNewNotes(target.value)}/>
                 </div>
                 {/* tällä submitoidaan koko form */}
-                <button className="nappi" type="submit" style={{ background: 'green'}}>Tallenna</button>
+                <button className="nappi3" type="submit">Tallenna</button>
 
                 {/* cancel-buttonissa on setLisäysTila(false), jolloin palataan asiakasnäyttöön */}
-                <button className="nappi" onClick={() => setAddPainlog(false)} style={{ background: 'red '}}>Peruuta</button>
-
+                <button className="nappi2" onClick={() => setAddPainlog(false)}>Peruuta</button>
+                </div>
             </form>
 
 

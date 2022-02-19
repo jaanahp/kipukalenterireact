@@ -48,6 +48,7 @@ const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setS
 
         return (
             <form onSubmit={submitLocation}>
+                <div className="lomake">
                 <div>
                 <input type="text" value={newLocationName} placeholder="Kivun sijainti" maxLength="50"
                 onChange={({ target }) => setNewLocationName(target.value)} required/>
@@ -58,7 +59,7 @@ const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setS
 
                 {/* cancel-buttonissa on setLisäysTila(false), jolloin palataan asiakasnäyttöön */}
                 <button className="nappi" onClick={() => setAddLocation(false)} style={{ background: 'red '}}>Peruuta</button>
-
+                </div>
             </form>
 
 

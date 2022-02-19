@@ -39,7 +39,7 @@ const NoteList = () => {
                         // Poistetaan login statesta
                         setNotes(notes.filter(filtered => filtered.noteId !== id))
 
-                        setMessage(`Muistiinpanon poisto onnistui!`)
+                        setMessage(`Muistiinpanon poisto onnistui`)
                         setIsPositive(true)
                         setShowMessage(true)
                         window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)

@@ -8,9 +8,13 @@ const Note = ({ note, handleDeleteClick, handleEditClick }) => {
         <>
         <div className='notepage'>
         ID {note.noteId}
-        : {note.noteText}
-        <button className="button1" onClick={() => handleDeleteClick(note.noteId)}>Poista</button>
-        <button className="button1" onClick={() => handleEditClick(note)}>Muokkaa</button>
+        <div className='notetext'>
+        {note.noteText}
+        </div>
+        <div className='buttons'>
+        <button className="nappi2" onClick={() => handleDeleteClick(note.noteId)}>Poista</button>
+        <button className="nappi3" onClick={() => handleEditClick(note)}>Muokkaa</button>
+        </div>
         </div>
         </>
 

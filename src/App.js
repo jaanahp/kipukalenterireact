@@ -10,14 +10,14 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'
 
 function App() {
   return (
-    <div>
-        <Router>
+    <div className='kipukalenteri'>
+      <Router>
       <Navbar className="navbarOma">
-      <Link to={'/'} className='nav-link'>Etusivu</Link>
-        <Nav className="mr-auto">
-          <Link to={'/Painlog'} className='nav-link'>Kipumerkinnät</Link>
-          <Link to={'/Location'} className='nav-link'>Sijainnit</Link>
-          <Link to={'/Note'} className='nav-link'>Muistiinpanot</Link>
+        <Nav>
+          <Link to={'/'} className='nav-link' style={{ color: 'white'}}>Etusivu</Link>
+          <Link to={'/Painlog'} className='nav-link' style={{ color: 'white'}}>Merkinnät</Link>
+          <Link to={'/Location'} className='nav-link' style={{ color: 'white'}}>Sijainnit</Link>
+          <Link to={'/Note'} className='nav-link'style={{ color: 'white'}}>Muistiinpanot</Link>
           </Nav>
       </Navbar>
 
@@ -32,5 +32,7 @@ function App() {
     </div>
   );
 }
+
+// nav className='mr-auto'
 
 export default App;

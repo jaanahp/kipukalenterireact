@@ -47,6 +47,7 @@ const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setI
 
         return (
             <form onSubmit={submitNote}>
+                <div className="lomake">
                 <div>
                 <input type="text" value={newNoteText} placeholder="Muistiinpano" maxLength="250"
                 onChange={({ target }) => setNewNoteText(target.value)} required/>
@@ -57,7 +58,7 @@ const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setI
 
                 {/* cancel-buttonissa on setLisäysTila(false), jolloin palataan asiakasnäyttöön */}
                 <button className="nappi" onClick={() => setAddNote(false)} style={{ background: 'red '}}>Peruuta</button>
-
+                </div>
             </form>
 
 

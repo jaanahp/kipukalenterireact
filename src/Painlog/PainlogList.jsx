@@ -22,6 +22,10 @@ const PainlogList = () => {
 
     const [locations, setLocations] = useState([])
     const [selectLocation, setSelectLocation] = useState("Kaikki");
+    
+    // const today = new Date();
+    // const oneWeek = today.setDate(today.getDate() + 7);
+    // const [selectTime, setSelectTime] = useState("Kaikki");
 
     useEffect(() => {
         PainlogService
@@ -65,7 +69,7 @@ const PainlogList = () => {
                         // Poistetaan login statesta
                         setPainlogs(painlogs.filter(filtered => filtered.logId !== id))
 
-                        setMessage(`merkinnän poisto onnistui!`)
+                        setMessage(`merkinnän poisto onnistui`)
                         setIsPositive(true)
                         setShowMessage(true)
                         window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
@@ -120,12 +124,16 @@ const PainlogList = () => {
                 <h1 className="otsikko"> Kipumerkinnät
                 <button className="nappi" onClick={() => setAddPainlog(true)}>Lisää</button>
                 </h1>
-
-                <div className="suodatin">
-                <select value={selectLocation} onChange={e=>setSelectLocation(e.target.value)}>
+                <div>
+                <select className="suodatin" value={selectLocation} onChange={e=>setSelectLocation(e.target.value)}>
                 <option value="Kaikki">Kaikki</option>
                 {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>
+                {/* <select className="suodatin" value={selectTime} onChange={x=>setSelectTime(x.target.value)}>
+                <option value="Kaikki">Kaikki</option>
+                <option value="kk">Kuukausi</option>
+                <option value="viikko">Viikko</option>
+                </select> */}
                 </div>
 
                 { showMessage && <Message message={message} isPositive={isPositive} /> }
