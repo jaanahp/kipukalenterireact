@@ -23,9 +23,14 @@ const PainlogList = () => {
     const [locations, setLocations] = useState([])
     const [selectLocation, setSelectLocation] = useState("Kaikki");
     
-    // const today = new Date();
-    // const oneWeek = today.setDate(today.getDate() + 7);
-    // const [selectTime, setSelectTime] = useState("Kaikki");
+    const oneMonth = new Date();
+    oneMonth.setDate(oneMonth.getDate() - 30)
+    
+    const sixMonths = new Date();
+    sixMonths.setDate(sixMonths.getDate() - 180)
+
+
+    const [selectTime, setSelectTime] = useState("Kaikki");
 
     useEffect(() => {
         PainlogService
@@ -36,15 +41,48 @@ const PainlogList = () => {
                     setPainlogs(data)
                 } else {
                     console.log(selectLocation) //tämä onnistuu oikein
+                    console.log(selectTime)
                     console.log(data)
                     setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
                     console.log(painlogs) 
+                    console.log(oneMonth) //Tähän tulee myös kellonaika.
                     const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
                     console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
                     setPainlogs(filtered)
                 }
             })
     }, [addPainlog, editPainlog, selectLocation])
+
+    // aikafiltterin testausta varten
+    // useEffect(() => {
+    //     PainlogService
+    //         .getAll()
+    //         .then(data => {
+    //             if (selectTime === "Kaikki") {
+    //                 console.log(data)
+    //                 setPainlogs(data)
+    //             } else if (selectTime === "kk") {
+    //                 // console.log(selectLocation) //tämä onnistuu oikein
+    //                 console.log(selectTime)
+    //                 console.log(data)
+    //                 setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
+    //                 console.log(painlogs) 
+    //                 console.log(oneMonth) //Tähän tulee myös kellonaika.
+    //                 const filtered = painlogs.filter(filtered => filtered.startTime.getDate < oneMonth)
+    //                 console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+    //                 setPainlogs(filtered)
+    //             } else if (selectTime === "6kk") {
+    //                 console.log(selectTime)
+    //                 console.log(data)
+    //                 setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
+    //                 console.log(painlogs) 
+    //                 console.log(sixMonths) //Tähän tulee myös kellonaika.
+    //                 const filtered = painlogs.filter(filtered => filtered.startTime.Date < sixMonths)
+    //                 console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+    //                 setPainlogs(filtered)
+    //             }
+    //         })
+    // }, [addPainlog, editPainlog, selectLocation, selectTime])
 
     useEffect(() => {
         LocationService
@@ -129,17 +167,17 @@ const PainlogList = () => {
                 <option value="Kaikki">Kaikki</option>
                 {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>
-                {/* <select className="suodatin" value={selectTime} onChange={x=>setSelectTime(x.target.value)}>
+                </div>
+                <div>
+                <select className="suodatin" value={selectTime} onChange={e=>setSelectTime(e.target.value)}>
                 <option value="Kaikki">Kaikki</option>
                 <option value="kk">Kuukausi</option>
-                <option value="viikko">Viikko</option>
-                </select> */}
+                <option value="6kk">Kuusi kuukautta</option>
+                </select>
                 </div>
 
                 { showMessage && <Message message={message} isPositive={isPositive} /> }
                 {painlogs.map(log => <Painlog key={log.logId} log={log} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} /> )}
-
-                {/* {locations.map(location => <Painlog location={location} />)} */}
             </>
         ) //return
     } //if

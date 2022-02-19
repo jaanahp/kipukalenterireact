@@ -27,7 +27,7 @@ const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setS
 
                         setTimeout(() => {
                             setShowMessage(false)
-                        }, 4000);
+                        }, 6000);
                     } //if päättyy
 
                 }) //.then päättyy
