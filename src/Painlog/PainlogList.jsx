@@ -39,6 +39,8 @@ const PainlogList = () => {
                     console.log(data)
                     setPainlogs(data)
                 } else if (selectLocation === "Kaikki" && selectTime === "kk") {
+                    console.log(data)
+                    setPainlogs(data)
                     console.log(selectTime)
                     console.log(selectLocation) 
                     console.log(oneMonth)
@@ -46,6 +48,8 @@ const PainlogList = () => {
                     console.log(filtered) //tämä tulee tyhjänä
                     setPainlogs(filtered)
                 } else if (selectLocation === "Kaikki" && selectTime === "6kk") {
+                    console.log(data)
+                    setPainlogs(data)
                     console.log(selectTime)
                     console.log(selectLocation)  
                     console.log(sixMonths)
@@ -53,18 +57,24 @@ const PainlogList = () => {
                     console.log(filtered)
                     setPainlogs(filtered)
                 } else if (selectLocation !== "Kaikki" && selectTime === "Kaikki") {
+                    console.log(data)
+                    setPainlogs(data)
                     console.log(selectTime)
                     console.log(selectLocation)
                     const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
                     console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
                     setPainlogs(filtered)
                 } else if (selectLocation !== "Kaikki" && selectTime === "kk") {
+                    console.log(data)
+                    setPainlogs(data)
                     console.log(selectTime)
                     console.log(selectLocation)
                     const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > oneMonth.toISOString())
                     console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
                     setPainlogs(filtered)
                 } else if (selectLocation !== "Kaikki" && selectTime === "6kk") {
+                    console.log(data)
+                    setPainlogs(data)
                     console.log(selectTime)
                     console.log(selectLocation)
                     const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > sixMonths.toISOString())
