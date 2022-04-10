@@ -22,38 +22,37 @@ const PainlogList = () => {
 
     const [locations, setLocations] = useState([])
     const [selectLocation, setSelectLocation] = useState("Kaikki");
-    
-    const oneMonth = new Date();
+
+       const oneMonth = new Date();
     oneMonth.setDate(oneMonth.getDate() - 30)
     
+    const today = new Date();
+
     const sixMonths = new Date();
     sixMonths.setDate(sixMonths.getDate() - 180)
 
-
     const [selectTime, setSelectTime] = useState("Kaikki");
 
-    useEffect(() => {
-        PainlogService
-            .getAll()
-            .then(data => {
-                if (selectLocation === "Kaikki") {
-                    console.log(data)
-                    setPainlogs(data)
-                } else {
-                    console.log(selectLocation) //tämä onnistuu oikein
-                    console.log(selectTime)
-                    console.log(data)
-                    setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
-                    console.log(painlogs) 
-                    console.log(oneMonth) //Tähän tulee myös kellonaika.
-                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
-                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
-                    setPainlogs(filtered)
-                }
-            })
-    }, [addPainlog, editPainlog, selectLocation])
+    // Alkuperäinen sijainnin suodatus
+    // useEffect(() => {
+    //     PainlogService
+    //         .getAll()
+    //         .then(data => {
+    //             if (selectLocation === "Kaikki") {
+    //                 console.log(data)
+    //                 setPainlogs(data)
+    //             } else {
+    //                 console.log(selectLocation) //tämä onnistuu oikein
+    //                 console.log(data)
+    //                 setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
+    //                 const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
+    //                 console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+    //                 setPainlogs(filtered)
+    //             }
+    //         })
+    // }, [addPainlog, editPainlog, selectLocation])
 
-    // aikafiltterin testausta varten
+    // Aikasuodatus
     // useEffect(() => {
     //     PainlogService
     //         .getAll()
@@ -62,33 +61,70 @@ const PainlogList = () => {
     //                 console.log(data)
     //                 setPainlogs(data)
     //             } else if (selectTime === "kk") {
-    //                 // console.log(selectLocation) //tämä onnistuu oikein
-    //                 console.log(selectTime)
-    //                 console.log(data)
-    //                 setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
-    //                 console.log(painlogs) 
-    //                 console.log(oneMonth) //Tähän tulee myös kellonaika.
-    //                 const filtered = painlogs.filter(filtered => filtered.startTime.getDate < oneMonth)
-    //                 console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+    //                 console.log(selectTime) 
+    //                 console.log(oneMonth) //Onnistuu
+    //                 const filtered = painlogs.filter(filtered => filtered.startTime > oneMonth.toISOString())
+    //                 console.log(filtered) //tämä tulee tyhjänä
     //                 setPainlogs(filtered)
     //             } else if (selectTime === "6kk") {
-    //                 console.log(selectTime)
-    //                 console.log(data)
-    //                 setPainlogs(data) //tämä ei ilmeisesti onnistu, koska loggautuu vain edellinen filtteröity tulos
-    //                 console.log(painlogs) 
-    //                 console.log(sixMonths) //Tähän tulee myös kellonaika.
-    //                 const filtered = painlogs.filter(filtered => filtered.startTime.Date < sixMonths)
-    //                 console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+    //                 console.log(selectTime) 
+    //                 console.log(sixMonths) // Onnistuu
+    //                 const filtered = painlogs.filter(filtered => filtered.startTime < sixMonths.toISOString())
+    //                 console.log(filtered) //tämä tulee tyhjänä
     //                 setPainlogs(filtered)
     //             }
     //         })
     // }, [addPainlog, editPainlog, selectLocation, selectTime])
 
+    // Yhdistetty aika- ja sijaintisuodatus
+    useEffect(() => {
+        PainlogService
+            .getAll()
+            .then(data => {
+                if (selectTime === "Kaikki" && selectLocation === "Kaikki") {
+                    console.log(data)
+                    setPainlogs(data)
+                } else if (selectLocation === "Kaikki" && selectTime === "kk") {
+                    console.log(selectTime)
+                    console.log(selectLocation) 
+                    console.log(oneMonth)
+                    const filtered = painlogs.filter(filtered => filtered.startTime > oneMonth.toISOString())
+                    console.log(filtered) //tämä tulee tyhjänä
+                    setPainlogs(filtered)
+                } else if (selectLocation === "Kaikki" && selectTime === "6kk") {
+                    console.log(selectTime)
+                    console.log(selectLocation)  
+                    console.log(sixMonths)
+                    const filtered = painlogs.filter(filtered => filtered.startTime < sixMonths.toISOString())
+                    console.log(filtered)
+                    setPainlogs(filtered)
+                } else if (selectLocation !== "Kaikki" && selectTime === "Kaikki") {
+                    console.log(selectTime)
+                    console.log(selectLocation)
+                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
+                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+                    setPainlogs(filtered)
+                } else if (selectLocation !== "Kaikki" && selectTime === "kk") {
+                    console.log(selectTime)
+                    console.log(selectLocation)
+                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > oneMonth.toISOString())
+                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+                    setPainlogs(filtered)
+                } else if (selectLocation !== "Kaikki" && selectTime === "6kk") {
+                    console.log(selectTime)
+                    console.log(selectLocation)
+                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > sixMonths.toISOString())
+                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
+                    setPainlogs(filtered)
+                }
+            })
+    }, [addPainlog, editPainlog, selectLocation, selectTime])
+
     useEffect(() => {
         LocationService
             .getAll()
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setLocations(data)
             })
     }, [])
@@ -151,7 +187,7 @@ const PainlogList = () => {
             <button className="nappi" onClick={() => setAddPainlog(true)}>Lisää</button>
             </h1>
             { showMessage && <Message message={message} isPositive={isPositive} /> }
-            <p>Lataa...</p>
+            <p>Ei tuloksia, päivitä sivu</p>
         </>
         ) //return
     } //if

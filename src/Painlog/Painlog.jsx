@@ -29,7 +29,7 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
 
         <>
         <div className='notepage' onClick={() => setShowMore(!showMore)}>
-        {dateStart}
+        {dateStart} {log.locationId}
         <div className="buttons">
         <button className="nappi2" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
         <button className="nappi3" onClick={() => handleEditClick(log)}>Muokkaa</button>
