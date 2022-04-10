@@ -21,7 +21,7 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
 
     const id = log.locationId
     const location = locations.find(loc => loc.locationId === log.locationId)
-    // const locName = location.locationName
+
     const time = log.duration
     const [hours, minutes] = [Math.floor(time/60), time%60];
 

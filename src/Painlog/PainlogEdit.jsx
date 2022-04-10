@@ -28,22 +28,6 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
                 })
         }, [])
 
-        //Aikavertailun testausta varten.
-        const oneMonth = new Date();
-        oneMonth.setDate(oneMonth.getDate() - 30)  
-        const sixMonths = new Date();
-        sixMonths.setDate(sixMonths.getDate() - 60)
-        if (changedLog.startTime > sixMonths) {
-            console.log("tuore")
-            console.log(sixMonths)
-            console.log(changedLog.startTime)
-        } else {
-            console.log("vanha")
-            console.log(sixMonths)
-            console.log(changedLog.startTime)
-        }
-
-
         const submitLog = (event) => {
             event.preventDefault()
             var changedLog = {
