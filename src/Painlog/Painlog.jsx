@@ -20,40 +20,47 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
     }, [])
 
     const id = log.locationId
-    const location = locations.find(loc => loc.locationId === log.locationId)
+    // const locationA = locations.find(loc => loc.locationId === log.locationId)
+    const location = locations.find(loc => loc.locationId === log.locationId) 
 
     const time = log.duration
     const [hours, minutes] = [Math.floor(time/60), time%60];
 
-    return (
-
-        <>
-        <div className='notepage' onClick={() => setShowMore(!showMore)}>
-        {dateStart} {log.locationId}
-        <div className="buttons">
-        <button className="nappi2" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
-        <button className="nappi3" onClick={() => handleEditClick(log)}>Muokkaa</button>
-        </div>
-        </div>
-
-
-        {showMore && <div className="lisatiedot">
-            <div className="showMore">
-            <div>Kivun intensiteetti: {log.painIntensity}</div>
-            <div>Loppumisaika: {dateEnd}</div>
-            <div>Kivun kesto: {hours} h {minutes} min</div>
-            <div>Lääkitys: {log.medication}</div>
-            <div>Kivun sijainti: {log.locationId} {location.locationName}</div>
-            <div>Aiheuttaja: {log.painTrigger}</div>
-            <div>Kivun tyyppi: {log.painType}</div>
-            <div>Lisätiedot: {log.notes}</div>
+    if (locations !== null && locations !== undefined) {
+        //const location = locations.find(loc => loc.locationId === log.locationId) 
+        return (
+            <>
+            <div className='notepage' onClick={() => setShowMore(!showMore)}>
+            Alkupäivämäärä: {dateStart} <br></br> Kivun sijainti: {location && location.locationName}
+            <div className="buttons">
+            <button className="nappi2" onClick={() => handleDeleteClick(log.logId)}>Poista</button>
+            <button className="nappi3" onClick={() => handleEditClick(log)}>Muokkaa</button>
             </div>
-            </div>}
-        </>
+            </div>
+    
+            {showMore && <div className="lisatiedot">
+                <div className="showMore">
+                <div>Kivun intensiteetti: {log.painIntensity}</div>
+                <div>Loppumisaika: {dateEnd}</div>
+                <div>Kivun kesto: {hours} h {minutes} min</div>
+                <div>Lääkitys: {log.medication}</div>
+                {/* <div>Kivun sijainti: {log.locationId} {locationA.locationName}</div> */}
+                <div>Aiheuttaja: {log.painTrigger}</div>
+                <div>Kivun tyyppi: {log.painType}</div>
+                <div>Lisätiedot: {log.notes}</div>
+                </div>
+                </div>}
+            </>
+        ) //return päättyy
+
+    } else {
+        return (
+            <p>Ladataan...</p>
+        )
+    }
+ 
 
 
-
-    ) //return päättyy
 }
 
 export default Painlog
