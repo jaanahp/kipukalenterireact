@@ -39,47 +39,107 @@ const PainlogList = () => {
                     console.log(data)
                     setPainlogs(data)
                 } else if (selectLocation === "Kaikki" && selectTime === "kk") {
-                    console.log(data)
-                    setPainlogs(data)
                     console.log(selectTime)
                     console.log(selectLocation) 
-                    console.log(oneMonth)
-                    const filtered = painlogs.filter(filtered => filtered.startTime > oneMonth.toISOString())
-                    console.log(filtered) //tämä tulee tyhjänä
-                    setPainlogs(filtered)
+                    console.log(data)
+                    function first() // Tämä pitäisi toteuttaa 1.
+                    {return new Promise((resolve) => {
+                        setPainlogs(data);
+                        resolve();
+                    });
+                    }
+                    console.log(painlogs)
+                    function second()
+                    {return new Promise((resolve) => {
+                        const filtered = painlogs.filter(filtered => filtered.startTime > oneMonth.toISOString()) //Tämä pitäisi toteuttaa 2.
+                        console.log(filtered) //tämä tulee tyhjänä
+                        setPainlogs(filtered) //Tämä pitäisi toteuttaa 3.
+                        resolve();
+                    });
+                    }
+                    first().then(second());
                 } else if (selectLocation === "Kaikki" && selectTime === "6kk") {
-                    console.log(data)
-                    setPainlogs(data)
                     console.log(selectTime)
-                    console.log(selectLocation)  
-                    console.log(sixMonths)
-                    const filtered = painlogs.filter(filtered => filtered.startTime < sixMonths.toISOString())
-                    console.log(filtered)
-                    setPainlogs(filtered)
+                    console.log(selectLocation) 
+                    console.log(data)
+                    function first() // Tämä pitäisi toteuttaa 1.
+                    {return new Promise((resolve) => {
+                        setPainlogs(data);
+                        resolve();
+                    });
+                    }
+                    console.log(painlogs)
+                    function second()
+                    {return new Promise((resolve) => {
+                        const filtered = painlogs.filter(filtered => filtered.startTime > sixMonths.toISOString()) //Tämä pitäisi toteuttaa 2.
+                        console.log(filtered) //tämä tulee tyhjänä
+                        setPainlogs(filtered) //Tämä pitäisi toteuttaa 3.
+                        resolve();
+                    });
+                    }
+                    first().then(second());
                 } else if (selectLocation !== "Kaikki" && selectTime === "Kaikki") {
-                    console.log(data)
-                    setPainlogs(data)
                     console.log(selectTime)
-                    console.log(selectLocation)
-                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation)
-                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
-                    setPainlogs(filtered)
+                    console.log(selectLocation) 
+                    console.log(data)
+                    function first() // Tämä pitäisi toteuttaa 1.
+                    {return new Promise((resolve) => {
+                        setPainlogs(data);
+                        resolve();
+                    });
+                    }
+                    console.log(painlogs)
+                    function second()
+                    {return new Promise((resolve) => {
+                        const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation) //Tämä pitäisi toteuttaa 2.
+                        console.log(filtered) //tämä tulee tyhjänä
+                        setPainlogs(filtered) //Tämä pitäisi toteuttaa 3.
+                        resolve();
+                    });
+                    }
+                    first().then(second());
                 } else if (selectLocation !== "Kaikki" && selectTime === "kk") {
-                    console.log(data)
-                    setPainlogs(data)
                     console.log(selectTime)
-                    console.log(selectLocation)
-                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > oneMonth.toISOString())
-                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
-                    setPainlogs(filtered)
+                    console.log(selectLocation) 
+                    console.log(data)
+                    function first() // Tämä pitäisi toteuttaa 1.
+                    {return new Promise((resolve) => {
+                        setPainlogs(data);
+                        resolve();
+                    });
+                    }
+                    console.log(painlogs)
+                    function second()
+                    {return new Promise((resolve) => {
+                        const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > oneMonth.toISOString()) //Tämä pitäisi toteuttaa 2.
+                        console.log(filtered) //tämä tulee tyhjänä
+                        setPainlogs(filtered) //Tämä pitäisi toteuttaa 3.
+                        resolve();
+                    });
+                    }
+                    first().then(second());
+                    //const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > oneMonth.toISOString())
                 } else if (selectLocation !== "Kaikki" && selectTime === "6kk") {
-                    console.log(data)
-                    setPainlogs(data)
                     console.log(selectTime)
-                    console.log(selectLocation)
-                    const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > sixMonths.toISOString())
-                    console.log(filtered) //tämä tulee tyhjänä tokalla suodatuksella eli tekee suodatuksen tokalla kierroksella jo suodatetusta joukosta
-                    setPainlogs(filtered)
+                    console.log(selectLocation) 
+                    console.log(data)
+                    function first() // Tämä pitäisi toteuttaa 1.
+                    {return new Promise((resolve) => {
+                        setPainlogs(data);
+                        resolve();
+                    });
+                    }
+                    console.log(painlogs)
+                    function second()
+                    {return new Promise((resolve) => {
+                        const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > sixMonths.toISOString()) //Tämä pitäisi toteuttaa 2.
+                        console.log(filtered) //tämä tulee tyhjänä
+                        setPainlogs(filtered) //Tämä pitäisi toteuttaa 3.
+                        resolve();
+                    });
+                    }
+                    first().then(second());
+                    //onst filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > sixMonths.toISOString())
                 }
             })
     }, [addPainlog, editPainlog, selectLocation, selectTime])

@@ -11,23 +11,32 @@ const Painlog = ({ log, handleDeleteClick, handleEditClick }) => {
     var dateEnd = new Date(log.endTime).toLocaleDateString('fi-FI', {hour: '2-digit', minute: '2-digit'});
 
     useEffect(() => {
+        // this resolves the problem async task is causing
+        let cancel = false;
+
         LocationService
             .getAll()
             .then(data => {
+                if (cancel) return;
                 // console.log(data)
                 setLocations(data)
-            })
+            });
+
+            // cleanup-function to prevent the setLocations to be called if the component has been unmounted
+            return () => {
+                cancel = true;
+            }
+
     }, [])
 
     const id = log.locationId
-    // const locationA = locations.find(loc => loc.locationId === log.locationId)
     const location = locations.find(loc => loc.locationId === log.locationId) 
 
     const time = log.duration
     const [hours, minutes] = [Math.floor(time/60), time%60];
 
     if (locations !== null && locations !== undefined) {
-        //const location = locations.find(loc => loc.locationId === log.locationId) 
+ 
         return (
             <>
             <div className='notepage' onClick={() => setShowMore(!showMore)}>
