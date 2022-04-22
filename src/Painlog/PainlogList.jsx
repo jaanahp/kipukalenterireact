@@ -45,10 +45,10 @@ const PainlogList = () => {
                     function first() // Tämä pitäisi toteuttaa 1.
                     {return new Promise((resolve) => {
                         setPainlogs(data);
+                        console.log(painlogs)
                         resolve();
                     });
                     }
-                    console.log(painlogs)
                     function second()
                     {return new Promise((resolve) => {
                         const filtered = painlogs.filter(filtered => filtered.startTime > oneMonth.toISOString()) //Tämä pitäisi toteuttaa 2.
@@ -65,10 +65,10 @@ const PainlogList = () => {
                     function first() // Tämä pitäisi toteuttaa 1.
                     {return new Promise((resolve) => {
                         setPainlogs(data);
+                        console.log(painlogs)
                         resolve();
                     });
                     }
-                    console.log(painlogs)
                     function second()
                     {return new Promise((resolve) => {
                         const filtered = painlogs.filter(filtered => filtered.startTime > sixMonths.toISOString()) //Tämä pitäisi toteuttaa 2.
@@ -85,10 +85,10 @@ const PainlogList = () => {
                     function first() // Tämä pitäisi toteuttaa 1.
                     {return new Promise((resolve) => {
                         setPainlogs(data);
+                        console.log(painlogs)
                         resolve();
                     });
-                    }
-                    console.log(painlogs)
+                    }   
                     function second()
                     {return new Promise((resolve) => {
                         const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation) //Tämä pitäisi toteuttaa 2.
@@ -105,10 +105,10 @@ const PainlogList = () => {
                     function first() // Tämä pitäisi toteuttaa 1.
                     {return new Promise((resolve) => {
                         setPainlogs(data);
+                        console.log(painlogs)
                         resolve();
                     });
                     }
-                    console.log(painlogs)
                     function second()
                     {return new Promise((resolve) => {
                         const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > oneMonth.toISOString()) //Tämä pitäisi toteuttaa 2.
@@ -126,10 +126,10 @@ const PainlogList = () => {
                     function first() // Tämä pitäisi toteuttaa 1.
                     {return new Promise((resolve) => {
                         setPainlogs(data);
+                        console.log(painlogs)
                         resolve();
                     });
                     }
-                    console.log(painlogs)
                     function second()
                     {return new Promise((resolve) => {
                         const filtered = painlogs.filter(filtered => filtered.locationId == selectLocation && filtered.startTime > sixMonths.toISOString()) //Tämä pitäisi toteuttaa 2.
