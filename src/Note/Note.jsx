@@ -3,11 +3,13 @@ import '../App.css'
 
 const Note = ({ note, handleDeleteClick, handleEditClick }) => {
 
+    var noteDate = new Date(note.noteDate).toLocaleDateString('fi-FI', {hour: '2-digit', minute: '2-digit'});
+
     return (
 
         <>
         <div className='notepage'>
-        ID {note.noteId}
+        Päivämäärä: {noteDate}
         <div className='notetext'>
         {note.noteText}
         </div>

@@ -57,7 +57,7 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
                     setPainlogs(painlogs.filter(filtered => filtered.logId !== id))
                     setPainlogs(painlogs.concat(changedLog))
     
-                    setMessage(`Päivitetty ${changedLog.logId}`)
+                    setMessage(`Päivitetty merkintää`)
                     setIsPositive(true)
                     setShowMessage(true)
     

@@ -7,12 +7,15 @@ const NoteEdit = ({ setEditNote, setNotes, notes, setMessage, setShowMessage, se
         // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newNoteId, setNewNoteId] = useState(changedNote.noteId)
         const [newNoteText, setNewNoteText] = useState(changedNote.noteText)
+        const [newNoteDate, setNewNoteDate] = useState(changedNote.noteDate)
 
         const submitNote = (event) => {
             event.preventDefault()
             var changedNote = {
                 noteId: newNoteId,
-                noteText: newNoteText
+                noteText: newNoteText,
+                noteDate: newNoteDate
+
             } 
 
             NoteService
@@ -59,6 +62,11 @@ const NoteEdit = ({ setEditNote, setNotes, notes, setMessage, setShowMessage, se
             <form onSubmit={submitNote}>
                 <div>
                     <p>ID: {newNoteId}</p>
+                </div>
+                <div>
+                    <label>Päivämäärä</label><br></br>
+                    <input type="datetime-local" value={newNoteDate} placeholder={changedNote.noteDate}
+                    onChange={({ target }) => setNewNoteDate(target.value)}/>
                 </div>
                 <div>
                 <input type="text" value={newNoteText} placeholder={changedNote.noteText} maxLength="250"

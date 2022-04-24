@@ -6,11 +6,13 @@ const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setI
 
         // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newNoteText, setNewNoteText] = useState('')
+        const [newNoteDate, setNewNoteDate] = useState('')
 
         const submitNote = (event) => {
             event.preventDefault()
             var newNote = {
-                noteText: newNoteText
+                noteText: newNoteText,
+                noteDate: newNoteDate
             } 
 
             NoteService
@@ -48,6 +50,11 @@ const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setI
         return (
             <form onSubmit={submitNote}>
                 <div className="lomake">
+                <div>
+                    <label>Päivämäärä</label><br></br>
+                    <input type="datetime-local" value={newNoteDate}
+                    onChange={({ target }) => setNewNoteDate(target.value)}/>
+                </div>
                 <div>
                 <input type="text" value={newNoteText} placeholder="Muistiinpano" maxLength="250"
                 onChange={({ target }) => setNewNoteText(target.value)} required/>
