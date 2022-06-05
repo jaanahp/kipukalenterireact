@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import LocationService from '../services/location'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setShowMessage, setIsPositive }) => {
 
-        // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newLocationName, setNewLocationName] = useState('')
 
         const submitLocation = (event) => {
@@ -12,59 +12,54 @@ const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setS
             var newLocation = {
                 locationName: newLocationName
             } 
-            console.log(newLocation)
-            
+            const jwt = localStorage.getItem('token')
+            LocationService.setToken(jwt)
             LocationService
                 .create(newLocation)
                 .then(response => {
-
                     if (response.status === 200) {
                         setLocations(locations.concat(newLocation))
-
                         setMessage(`Lisätty sijainti ${newLocation.locationName}`)
                         setIsPositive(true)
                         setShowMessage(true)
-
                         setTimeout(() => {
                             setShowMessage(false)
                         }, 6000);
-                    } //if päättyy
-
-                }) //.then päättyy
+                    }
+                })
                 .catch(error => {
                     setMessage(`Tapahtui virhe. Tässä lisätietoa: ${error}`)
                     setIsPositive(false)
                     setShowMessage(true)
-
                     setTimeout(() => {
                         setShowMessage(false)
                     }, 7000);
-                }) //.catch päättyy
-
+                })
                 setTimeout(() => {
                     setAddLocation(false)
                 }, 500);
-        } // submit
+        }
+
+        const handleChangeName = (event) => {
+            setNewLocationName(event.target.value)
+          }
 
         return (
             <form onSubmit={submitLocation}>
-                <div className="lomake">
+                <div id="locationform" className="lomake">
+                <h4>Lisää sijainti</h4>
                 <div>
-                <input type="text" value={newLocationName} placeholder="Kivun sijainti" maxLength="50"
-                onChange={({ target }) => setNewLocationName(target.value)} required/>
+                <input id="locationInput" type="text" value={newLocationName} placeholder="Kivun sijainti" maxLength="50"
+                onChange={handleChangeName} />
                 </div>
-
-                {/* tällä submitoidaan koko form */}
-                <button className="nappi" type="submit" style={{ background: 'green'}}>Tallenna</button>
-
-                {/* cancel-buttonissa on setLisäysTila(false), jolloin palataan asiakasnäyttöön */}
-                <button className="nappi" onClick={() => setAddLocation(false)} style={{ background: 'red '}}>Peruuta</button>
+                <button id="cancellocadd" className="nappi1" onClick={() => setAddLocation(false)} style={{ background: 'red '}} title="Peruuta"><FontAwesomeIcon icon="far fa-window-close" /></button>
+                <button id="submitlocation" className="nappi" type="submit" style={{ background: 'green', marginLeft: '10px'}} title="Tallenna"><FontAwesomeIcon icon="far fa-check-square" /></button>
                 </div>
             </form>
 
 
-        ) //return päättyy
+        )
 
-} //LoginAdd päättyy
+} 
 
 export default LocationAdd

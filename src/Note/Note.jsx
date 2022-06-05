@@ -1,12 +1,12 @@
 import React from 'react'
 import '../App.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Note = ({ note, handleDeleteClick, handleEditClick }) => {
 
     var noteDate = new Date(note.noteDate).toLocaleDateString('fi-FI', {hour: '2-digit', minute: '2-digit'});
 
     return (
-
         <>
         <div className='notepage'>
         Päivämäärä: {noteDate}
@@ -14,15 +14,11 @@ const Note = ({ note, handleDeleteClick, handleEditClick }) => {
         {note.noteText}
         </div>
         <div className='buttons'>
-        <button className="nappi2" onClick={() => handleDeleteClick(note.noteId)}>Poista</button>
-        <button className="nappi3" onClick={() => handleEditClick(note)}>Muokkaa</button>
+        <button id="notedelete" className="nappi2" onClick={() => handleDeleteClick(note.noteId)} title="Poista"><FontAwesomeIcon icon="far fa-trash-alt" /></button>
+        <button id="noteedit" className="nappi3" onClick={() => handleEditClick(note)} title="Muokkaa"><FontAwesomeIcon icon="far fa-edit" /></button>
         </div>
         </div>
         </>
-
-
-
-    ) //return päättyy
+    )
 }
-
 export default Note

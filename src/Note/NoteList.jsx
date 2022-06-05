@@ -5,61 +5,75 @@ import Note from './Note'
 import Message from '../Message'
 import NoteAdd from './NoteAdd'
 import NoteEdit from './NoteEdit'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const NoteList = () => {
 
-    const [notes, setNotes] = useState([]) // tietotyyppi on taulukko
+    const [notes, setNotes] = useState([])
     const [addNote, setAddNote] = useState(false)
-
+    const [noteArray, setNoteArray] = useState([])
+    const [currentUser, setCurrentUser] = useState()
     const [editNote, setEditNote] = useState(false)
     const [changedNote, setChangedNote] = useState({}) 
-
     const [showMessage, setShowMessage] = useState(false)
     const [isPositive, setIsPositive] = useState(false)
     const [message, setMessage] = useState('')
 
     useEffect(() => {
+        const userFromLS = localStorage.getItem('user')
+        if(userFromLS) {
+          setCurrentUser(userFromLS)
+        }
+      }, [])
+
+    useEffect(() => {
+        let cancel = false;
+        const token = localStorage.getItem('token')
+        NoteService
+            .setToken(token)
         NoteService
             .getAll()
             .then(data => {
-                console.log(data)
-                setNotes(data)
+                if (cancel) return;
+                setNoteArray(data)
+                const filtered = noteArray.filter(filtered => filtered.userId === currentUser)
+                setNotes(filtered)
             })
-    }, [addNote, editNote])
+
+            return () => {
+                cancel = true;
+        }
+    }, [addNote, editNote, noteArray, currentUser])
 
     const handleDeleteClick = id => {
         const note = notes.find(note => note.noteId === id)
         const confirm = window.confirm(`Haluatko todella poistaa muistiinpanon pysyvästi?`)
-
         if (confirm) {
-
+            const jwt = localStorage.getItem('token')
+            NoteService.setToken(jwt)
             NoteService.remove(id)
                 .then(response => {
                     if (response.status === 200) {
-                        // Poistetaan login statesta
                         setNotes(notes.filter(filtered => filtered.noteId !== id))
-
                         setMessage(`Muistiinpanon poisto onnistui`)
                         setIsPositive(true)
                         setShowMessage(true)
-                        window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
-
+                        window.scrollBy(0, -10000)
                         setTimeout(() => {
                             setShowMessage(false)
                         }, 4000 )
-                    } //if
-                }) //.then
+                    }
+                })
                 .catch(error => {
                     console.log(error)
                     setMessage(`Tapahtui virhe: ${error}`)
                     setIsPositive(false)
                     setShowMessage(true)
-
                     setTimeout(() => {
                         setShowMessage(false)
                     }, 7000 )
-                }) //.catch
-        } //if
+                })
+        }
         else {
             setMessage('Poisto peruutettu')
             setIsPositive(true)
@@ -68,8 +82,8 @@ const NoteList = () => {
             setTimeout(() => {
                 setShowMessage(false)
             }, 4000 )
-        } //else
-    } // handleDeleteClick
+        }
+    }
 
     const handleEditClick = note => {
         setChangedNote(note)
@@ -80,7 +94,7 @@ const NoteList = () => {
         return (
         <>
             <h1 className="otsikko"> Muistiinpanot
-            <button className="nappi" onClick={() => setAddNote(true)}>Lisää uusi</button></h1>
+            <button className="nappi" onClick={() => setAddNote(true)} style={{ background: 'green'}} title="Lisää"><FontAwesomeIcon icon="far fa-plus-square" /></button></h1>
             { showMessage && <Message message={message} isPositive={isPositive} /> }
             <p>Lataa...</p>
         </>
@@ -91,7 +105,7 @@ const NoteList = () => {
         return (
             <>
                 <h1 className="otsikko"> Muistiinpanot
-                <button className="nappi" onClick={() => setAddNote(true)}>Lisää</button></h1>
+                <button id="addnote1" className="nappi" onClick={() => setAddNote(true)} style={{ background: 'green'}} title="Lisää"><FontAwesomeIcon icon="far fa-plus-square" /></button></h1>
                 { showMessage && <Message message={message} isPositive={isPositive} /> }
                 {notes.map(note => <Note key={note.noteId} note={note} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} /> )}
             </>

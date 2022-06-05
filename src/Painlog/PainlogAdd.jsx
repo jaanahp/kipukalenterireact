@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import '../App.css'
 import LogService from '../services/painlog'
 import LocationService from '../services/location'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowMessage, setIsPositive }) => {
 
-        // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newPainIntensity, setNewPainIntensity] = useState('')
         const [newStartTime, setNewStartTime] = useState('')
         const [newEndTime, setNewEndTime] = useState('')
@@ -16,8 +16,19 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
         const [newLocationId, setNewLocationId] = useState('')
         const [newNotes, setNewNotes] = useState('')
         const [locations, setLocations] = useState([])
+        const [newUserId, setNewUserId] = useState('')
 
         useEffect(() => {
+            const userFromLS = localStorage.getItem('user')
+            if(userFromLS) {
+              setNewUserId(userFromLS)
+              console.log(userFromLS)
+            }
+          }, [])
+
+        useEffect(() => {
+            const token = localStorage.getItem('token')
+            LocationService.setToken(token)
             LocationService
                 .getAll()
                 .then(data => {
@@ -37,17 +48,17 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                 painTrigger: newPainTrigger,
                 painType: newPainType,
                 locationId: newLocationId,
-                notes: newNotes
+                notes: newNotes,
+                userId: newUserId
             }
-            console.log(newLog) //tämän saa logattua
-
+            console.log(newLog)
+            const jwt = localStorage.getItem('token')
+            LogService.setToken(jwt)
             LogService
                 .create(newLog)
                 .then(response => {
-
                     if (response.status === 200) {
                         setPainlogs(painlogs.concat(newLog))
-
                         setMessage(`Lisätty uusi merkintä`)
                         setIsPositive(true)
                         setShowMessage(true)
@@ -55,77 +66,69 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                         setTimeout(() => {
                             setShowMessage(false)
                         }, 4000);
-                    } //if päättyy
-
-                }) //.then päättyy
+                    }
+                })
                 .catch(error => {
                     setMessage(`Tapahtui virhe. Tässä lisätietoa: ${error}`)
                     setIsPositive(false)
                     setShowMessage(true)
-
                     setTimeout(() => {
                         setShowMessage(false)
                     }, 7000);
-                }) //.catch päättyy
-
+                })
                 setTimeout(() => {
                     setAddPainlog(false)
                 }, 500);
-        } // submit
-
+        }
         return (
             <form onSubmit={submitLog}>
                 <div className="lomake">
+                <h4>Lisää kipumerkintä</h4>
                 <div>
-                    <input type="number" value={newPainIntensity} placeholder="Intensiteetti 1-10" min="1" max="10"
+                    <input id="intensity" type="number" value={newPainIntensity} placeholder="Intensiteetti 1-10" min="1" max="10"
                     onChange={({ target }) => setNewPainIntensity(target.value)}/>
                 </div>
                 <div>
-                    <input type="datetime-local" value={newStartTime} placeholder="Alkuaika"
+                    <input id="starttime" type="datetime-local" value={newStartTime} placeholder="Alkuaika"
                     onChange={({ target }) => setNewStartTime(target.value)}/>
                 </div>
                 <div>
-                    <input type="datetime-local" value={newEndTime} placeholder="Loppuaika"
+                    <input id="endtime" type="datetime-local" value={newEndTime} placeholder="Loppuaika"
                     onChange={({ target }) => setNewEndTime(target.value)}/>
                 </div>
                 <div>
-                    <input type="text" value={newMedication} placeholder="Otetut lääkkeet" maxLength="250"
+                    <input id="medication" type="text" value={newMedication} placeholder="Otetut lääkkeet" maxLength="250"
                     onChange={({ target }) => setNewMedication(target.value)}/>
                 </div>
                 <div>
-                <select className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                <select id="locationselect" className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
                     <option value=""></option>
                     {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>
                 </div>
                 <div>
-                    <input type="text" value={newLocationInfo} placeholder="Sijainnin lisätieto"
+                    <input id="locationinfo" type="text" value={newLocationInfo} placeholder="Sijainnin lisätieto"
                     onChange={({ target }) => setNewLocationInfo(target.value)}/>
                 </div>
                 <div>
-                    <input type="text" value={newPainTrigger} placeholder="Kivun aiheuttajat" maxLength="250"
+                    <input id="trigger" type="text" value={newPainTrigger} placeholder="Kivun aiheuttajat" maxLength="250"
                     onChange={({ target }) => setNewPainTrigger(target.value)}/>
                 </div>
                 <div>
-                    <input type="text" value={newPainType} placeholder="Kivun tyyppi" maxLength="250"
+                    <input id="type" type="text" value={newPainType} placeholder="Kivun tyyppi" maxLength="250"
                     onChange={({ target }) => setNewPainType(target.value)}/>
                 </div>
                 <div>
-                    <input type="text" value={newNotes} placeholder="Lisätiedot"
+                    <input id="notes" type="text" value={newNotes} placeholder="Lisätiedot"
                     onChange={({ target }) => setNewNotes(target.value)}/>
                 </div>
-                {/* tällä submitoidaan koko form */}
-                <button className="nappi3" type="submit">Tallenna</button>
-
-                {/* cancel-buttonissa on setLisäysTila(false), jolloin palataan asiakasnäyttöön */}
-                <button className="nappi2" onClick={() => setAddPainlog(false)}>Peruuta</button>
+                <div>
+                    <p>Käyttäjä-ID: {newUserId} </p>
+                </div>
+                <button id="cancellogadd" className="nappi1" onClick={() => setAddPainlog(false)} style={{ background: 'red '}} title="Peruuta"><FontAwesomeIcon icon="far fa-window-close" /></button>
+                <button id="submitpainlog" className="nappi" type="submit" style={{ background: 'green', marginLeft: '10px'}} title="Tallenna"><FontAwesomeIcon icon="far fa-check-square" /></button>
                 </div>
             </form>
-
-
-        ) //return päättyy
-
-} //LoginAdd päättyy
-
-
+        )
+}
 export default PainlogAdd

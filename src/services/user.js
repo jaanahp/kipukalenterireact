@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = "https://kipukalenteriapi.azurewebsites.net/kipukalenteri/note"
+const baseUrl = "https://kipukalenteriapi.azurewebsites.net/kipukalenteri/user"
 
 let token = null
 
@@ -16,11 +16,8 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-const create = newNote => {
-    const config = {
-        headers: { Authorization: token },
-    }
-    return axios.post(baseUrl, newNote, config)
+const create = newUser => {
+    return axios.post(baseUrl, newUser)
 }
 
 const remove = id => {
@@ -30,11 +27,11 @@ const remove = id => {
     return axios.delete(`${baseUrl}/${id}`, config)
 }
 
-const update = (changedNote) => {
+const update = (changedUser) => {
     const config = {
         headers: { Authorization: token },
     }
-    return axios.put(`${baseUrl}/${changedNote.noteId}`, changedNote, config)
+    return axios.put(`${baseUrl}/${changedUser.username}`, changedUser, config)
 }
 
 // eslint-disable-next-line

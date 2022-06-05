@@ -1,20 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import NoteService from '../services/note'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setIsPositive }) => {
-
-        // State-määritykset, id:tä ei anneta vaan tietokanta luo sen
         const [newNoteText, setNewNoteText] = useState('')
         const [newNoteDate, setNewNoteDate] = useState('')
+        const [newUserId, setNewUserId] = useState('')
+
+        useEffect(() => {
+            const userFromLS = localStorage.getItem('user')
+            if(userFromLS) {
+              setNewUserId(userFromLS)
+              console.log(userFromLS)
+            }
+          }, [])
 
         const submitNote = (event) => {
             event.preventDefault()
             var newNote = {
                 noteText: newNoteText,
-                noteDate: newNoteDate
+                noteDate: newNoteDate,
+                userId: newUserId
             } 
-
+            const jwt = localStorage.getItem('token')
+            NoteService.setToken(jwt)
             NoteService
                 .create(newNote)
                 .then(response => {
@@ -29,48 +39,41 @@ const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setI
                         setTimeout(() => {
                             setShowMessage(false)
                         }, 4000);
-                    } //if päättyy
-
-                }) //.then päättyy
+                    }
+                })
                 .catch(error => {
                     setMessage(`Tapahtui virhe. Tässä lisätietoa: ${error}`)
                     setIsPositive(false)
                     setShowMessage(true)
-
                     setTimeout(() => {
                         setShowMessage(false)
                     }, 7000);
-                }) //.catch päättyy
-
+                })
                 setTimeout(() => {
                     setAddNote(false)
                 }, 500);
-        } // submit
-
+        }
         return (
             <form onSubmit={submitNote}>
                 <div className="lomake">
+                <h4>Lisää muistiinpano</h4>
                 <div>
                     <label>Päivämäärä</label><br></br>
-                    <input type="datetime-local" value={newNoteDate}
+                    <input id="notedate" type="datetime-local" value={newNoteDate}
                     onChange={({ target }) => setNewNoteDate(target.value)}/>
                 </div>
                 <div>
-                <input type="text" value={newNoteText} placeholder="Muistiinpano" maxLength="250"
+                <input id="notetext" type="text" value={newNoteText} placeholder="Muistiinpano" maxLength="250"
                 onChange={({ target }) => setNewNoteText(target.value)} required/>
                 </div>
-
-                {/* tällä submitoidaan koko form */}
-                <button className="nappi" type="submit" style={{ background: 'green'}}>Tallenna</button>
-
-                {/* cancel-buttonissa on setLisäysTila(false), jolloin palataan asiakasnäyttöön */}
-                <button className="nappi" onClick={() => setAddNote(false)} style={{ background: 'red '}}>Peruuta</button>
+                <div>
+                    <p>Käyttäjä-ID: {newUserId} </p>
+                </div>
+                <button id="cancelnoteadd" className="nappi1" onClick={() => setAddNote(false)} style={{ background: 'red '}} title="Peruuta"><FontAwesomeIcon icon="far fa-window-close" /></button>
+                <button id="submitnote" className="nappi" type="submit" style={{ background: 'green', marginLeft: '10px'}} title="Tallenna"><FontAwesomeIcon icon="far fa-check-square" /></button>
                 </div>
             </form>
-
-
-        ) //return päättyy
-
-} //LoginAdd päättyy
+        )
+}
 
 export default NoteAdd

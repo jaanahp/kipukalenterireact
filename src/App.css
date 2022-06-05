@@ -1,19 +1,14 @@
 .kipukalenteri {
-  width: 1500px;
+  /* width: 1500px; */
   margin: auto;
   background-color: rgb(250, 248, 248);
 }
 
 .navbarOma {
-  /* background-color: rgb(104, 124, 170); */
   background-color: rgb(57, 62, 119);
-  width: 1500px;
+  /* width: 1500px; */
   border-radius: 3px;
 }
-
-/* .Link:hover {
-  color: blue;
-} */
 
 .neg {
   color: rgb(179, 152, 138);
@@ -45,11 +40,21 @@
   margin-left: 15%;
 }
 
+.nappi1 {
+  border-radius: 5px;
+  /* margin-left: 10px; */
+  margin-top: 5px;
+  font-size: 18px;
+  background-color: rgb(70, 77, 146);
+  color: white;
+}
+
 .nappi {
   border-radius: 5px;
   margin-left: 10px;
+  margin-top: 5px;
   font-size: 18px;
-  background-color: rgb(70, 77, 146);
+  background-color: rgb(57, 62, 119);
   color: white;
 }
 
@@ -63,16 +68,25 @@
 
 .nappi3 {
   border-radius: 5px;
-  margin-left: 5px;
+  margin-left: 4px;
   font-size: 18px;
   background-color: rgb(45, 143, 92);
+  color: white;
+}
+
+.nappi4 {
+  border-radius: 5px;
+  margin-left: 2px;
+  margin-top: 5px;
+  /* font-size: 18px; */
+  background-color: rgb(70, 77, 146);
   color: white;
 }
 
 .notepage {
   width: 85%;
   margin: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .notetext {
@@ -81,26 +95,21 @@
 
 .suodatin {
   border-radius: 5px;
-  font-size: 18px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;
+  font-size: 16px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 5px;
+  margin-left: 10px;
   background-color: rgb(250, 248, 248);;
   border-color: navy;
   color: navy;
+  width: 190px;
 }
 
-/* h1 {
-  text-align: left;
-  margin-right: 10px;
-  margin-left: 10px;
-} */
-
 .otsikko {
-  font-size: 26px;
+  font-size: 22px;
   padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;
+  margin-left: 10px;
   color: navy;
 }
 
@@ -112,6 +121,7 @@
   width:65%;
   margin: 10px;
   border-radius: 15px;
+  font-size: 15px;
 }
 
 .showMore {
@@ -119,7 +129,17 @@
 }
 
 .lomake {
-  margin-left: 30%;
+  margin-left: 15%;
+  padding-top: 10px;
+}
+
+.locationselect {
+  width: 80%;
+}
+
+.logged-in {
+  padding-left: 10px;
+  font-size: 13px;
 }
 
 form {
@@ -129,7 +149,7 @@ form {
   border-color: navy;
   padding-bottom: 8px;
   padding-top: 8px;
-  width: 60%;
+  width: 280px;
   background: rgb(212, 214, 228);
   border-radius: 7px;
 }
@@ -137,153 +157,12 @@ form {
 input {
   display: block;
   height: 30px;
-  width: 60%;
-  /* margin-left: 10px;
-  margin-bottom: 6px; */
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
 
 }
 
-.locationselect {
-  width: 60%;
-}
 
 
-
-
-/* vanhat */
-
-
-/* h3 {
-  text-align: left;
-  margin-right: 10px;
-  margin-left: 10px;
-  font-size: 5px;
-} */
-
-/* h1 {
-  text-align: left;
-  margin-right: 10px;
-  margin-left: 10px;
-} */
-
-/* .notepage {
-  width: 85%;
-  margin: 10px;
-  font-size: 20px;
-} */
-
-/* .otsikko {
-  font-size: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;
-} */
-
-/* .suodatin {
-  font-size: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 10px;
-} */
-
-/* .nappi {
-  border-radius: 10px;
-  margin-left: 10px;
-  font-size: 18px;
-  background-color: rgb(134, 133, 182);
-  color: white;
-} */
-
-/* .navbarOma {
-  background-color: rgb(162, 187, 174);
-  width: 100%;
-} */
-
-  /* .showMore {
-    margin: 10px;
-  } */
-
- 
-  /* form {
-    margin-left: 20%;
-    border-style: solid;
-    border-color: rgb(155, 196, 174);
-    padding-bottom: 8px;
-    padding-top: 8px;
-    width: 60%;
-    background: rgb(155, 196, 174);
-    border-radius: 7px;
-  } */
-
-  /* input {
-    height: 30px;
-    width: 50%;
-    margin-bottom: 6px;
-  } */
-
-
-
-
-
-
-  /* .homepage-header-bg {
-    padding: 8%, 8%, 8%, 8%;
-    margin-top: 7%;
-    font-size: 40px;
-    width: 100%;
-    background-color: red;
-    color: white;
-  }  */
-
-  /* LoginFormin muotoilut */
-
-  /* .login-form {
-    width: 30%;
-    height: 70px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    text-align: left;
-    margin-left: 60%;
-  }
-
-  .login-input {
-    font-size: 14px;
-    height: 18px;
-    margin-left: 3px;
-  }
-
-  .login-button {
-    margin-left: 4px;
-    background-color:rgb(125, 156, 140);
-    border-radius:9px;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:14px;
-    padding:1px 8px;
-    text-decoration:none;
-    }
-
-  .cancel-button {
-    margin-left: 2px;
-    background-color: rgb(228, 173, 135);
-    border-radius:9px;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:14px;
-    padding:1px 5px;
-    text-decoration:none;
-    }
-
-  .käyttäjä-tieto {
-    margin-left: 15%;
-    color: yellow;
-    min-width: 300px;
-    font-size: 14px;
-   } */

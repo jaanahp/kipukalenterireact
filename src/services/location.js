@@ -1,23 +1,41 @@
 import axios from 'axios'
 
-const baseUrl = "https://localhost:5001/kipukalenteri/painlocation"
+const baseUrl = "https://kipukalenteriapi.azurewebsites.net/kipukalenteri/painlocation"
+
+let token = null
+
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
 
 const getAll = () => {
-    const request = axios.get(baseUrl)
+    const config = {
+        headers: { Authorization: token },
+    }
+    const request = axios.get(baseUrl, config)
     return request.then(response => response.data)
 }
 
 const create = newLocation => {
-    return axios.post(baseUrl, newLocation)
+    const config = {
+        headers: { Authorization: token },
+    }
+    return axios.post(baseUrl, newLocation, config)
 }
 
 const remove = id => {
-    return axios.delete(`${baseUrl}/${id}`)
+    const config = {
+        headers: { Authorization: token },
+    }
+    return axios.delete(`${baseUrl}/${id}`, config)
 }
 
 const update = (changedLocation) => {
-    return axios.put(`${baseUrl}/${changedLocation.locationId}`, changedLocation)
+    const config = {
+        headers: { Authorization: token },
+    }
+    return axios.put(`${baseUrl}/${changedLocation.locationId}`, changedLocation, config)
 }
 
 // eslint-disable-next-line
-export default { getAll, create, remove, update }
+export default { getAll, create, remove, update, setToken }

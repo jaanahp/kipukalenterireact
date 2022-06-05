@@ -5,50 +5,57 @@ import Location from './Location'
 import Message from '../Message'
 import LocationAdd from './LocationAdd'
 import LocationEdit from './LocationEdit'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const LocationList = () => {
 
-    const [locations, setLocations] = useState([]) // tietotyyppi on taulukko
+    const [locations, setLocations] = useState([]) 
     const [addLocation, setAddLocation] = useState(false)
-
     const [editLocation, setEditLocation] = useState(false)
     const [changedLocation, setChangedLocation] = useState({}) 
-
     const [showMessage, setShowMessage] = useState(false)
     const [isPositive, setIsPositive] = useState(false)
     const [message, setMessage] = useState('')
 
     useEffect(() => {
+        let cancel = false;
+        const token = localStorage.getItem('token')
+        LocationService
+            .setToken(token)
         LocationService
             .getAll()
             .then(data => {
-                console.log(data)
+                if (cancel) return;
                 setLocations(data)
             })
-    }, [addLocation, editLocation])
+            return () => {
+                cancel = true;
+            }
+    }, [addLocation, editLocation ])
 
     const handleDeleteClick = id => {
         const location = locations.find(location => location.locationId === id)
         const confirm = window.confirm(`Haluatko todella poistaa sijainnin: ${location.locationName} pysyvästi?`)
 
         if (confirm) {
+            const jwt = localStorage.getItem('token')
+            LocationService.setToken(jwt)
 
             LocationService.remove(id)
                 .then(response => {
                     if (response.status === 200) {
-                        // Poistetaan login statesta
                         setLocations(locations.filter(filtered => filtered.locationId !== id))
 
                         setMessage(`Sijainnin ${location.locationName} poisto onnistui`)
                         setIsPositive(true)
                         setShowMessage(true)
-                        window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+                        window.scrollBy(0, -10000)
 
                         setTimeout(() => {
                             setShowMessage(false)
                         }, 4000 )
-                    } //if
-                }) //.then
+                    }
+                })
                 .catch(error => {
                     console.log(error)
                     setMessage(`Tapahtui virhe: ${error}`)
@@ -58,8 +65,8 @@ const LocationList = () => {
                     setTimeout(() => {
                         setShowMessage(false)
                     }, 7000 )
-                }) //.catch
-        } //if
+                })
+        }
         else {
             setMessage('Poisto peruutettu')
             setIsPositive(true)
@@ -68,8 +75,8 @@ const LocationList = () => {
             setTimeout(() => {
                 setShowMessage(false)
             }, 4000 )
-        } //else
-    } // handleDeleteClick
+        }
+    }
 
     const handleEditClick = location => {
         setChangedLocation(location)
@@ -80,7 +87,7 @@ const LocationList = () => {
         return (
         <>
             <h1 className="otsikko"> Kivun sijainti
-            <button className="nappi" onClick={() => setAddLocation(true)}>Lisää uusi</button></h1>
+            <button className="nappi" onClick={() => setAddLocation(true)} style={{ background: 'green'}} title="Lisää"><FontAwesomeIcon icon="far fa-plus-square" /></button></h1>
             { showMessage && <Message message={message} isPositive={isPositive} /> }
             <p>Lataa...</p>
         </>
@@ -91,7 +98,7 @@ const LocationList = () => {
         return (
             <>
                 <h1 className="otsikko"> Kivun sijainti
-                <button className="nappi" onClick={() => setAddLocation(true)}>Lisää</button></h1>
+                <button id="addlocmain" className="nappi" onClick={() => setAddLocation(true)} style={{ background: 'green'}} title="Lisää"><FontAwesomeIcon icon="far fa-plus-square" /></button></h1>
                 { showMessage && <Message message={message} isPositive={isPositive} /> }
                 {locations.map(location => <Location key={location.locationId} location={location} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} /> )}
             </>
