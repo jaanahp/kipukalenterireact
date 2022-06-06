@@ -69,7 +69,7 @@ const LoginForm = ({ currentUser, setCurrentUser, setMessage, setIsPositive, set
     if (!currentUser) {
         return (
             <>
-            <form className="locationform" style={{ marginTop: '5px', width: '600px'}} onSubmit={authenticate}>
+            <form style={{ marginTop: '5px', width: '600px'}} onSubmit={authenticate}>
             <div className="lomake">
                 <input id="hpuserinput" className="login-input" value={username} type="text" placeholder="Käyttäjätunnus" onChange={({ target }) => setUsername(target.value)} />
                 <input id="hpuserpass" className="login-input" value={password} type="password" placeholder="Salasana" onChange={({ target }) => setPassword(target.value)} />
