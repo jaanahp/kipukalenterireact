@@ -61,7 +61,7 @@ const UserEdit = ({ setEditUser, setUsers, users, setMessage, setShowMessage, se
                 <h4>Muokkaa käyttäjää</h4>
                 <div>
                 <input id="eemailinput" type="text" value={newEmail} placeholder={changedUser.email} maxLength="250"
-                onChange={({ target }) => setNewEmail(target.value)} required />
+                onChange={({ target }) => setNewEmail(target.value)} />
                 </div>
                 <div>
                 <input id="epasswordinput" type="password" value={newPassword} placeholder="Salasana" maxLength="50"

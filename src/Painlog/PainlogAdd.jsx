@@ -86,22 +86,22 @@ const PainlogAdd = ({ setAddPainlog, setPainlogs, painlogs, setMessage, setShowM
                 <h4>Lisää kipumerkintä</h4>
                 <div>
                     <input id="intensity" type="number" value={newPainIntensity} placeholder="Intensiteetti 1-10" min="1" max="10"
-                    onChange={({ target }) => setNewPainIntensity(target.value)}/>
+                    onChange={({ target }) => setNewPainIntensity(target.value)} required/>
                 </div>
                 <div>
                     <input id="starttime" type="datetime-local" value={newStartTime} placeholder="Alkuaika"
-                    onChange={({ target }) => setNewStartTime(target.value)}/>
+                    onChange={({ target }) => setNewStartTime(target.value)} required/>
                 </div>
                 <div>
                     <input id="endtime" type="datetime-local" value={newEndTime} placeholder="Loppuaika"
-                    onChange={({ target }) => setNewEndTime(target.value)}/>
+                    onChange={({ target }) => setNewEndTime(target.value)} required/>
                 </div>
                 <div>
                     <input id="medication" type="text" value={newMedication} placeholder="Otetut lääkkeet" maxLength="250"
                     onChange={({ target }) => setNewMedication(target.value)}/>
                 </div>
                 <div>
-                <select id="locationselect" className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                <select id="locationselect" className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)} required>
                     <option value=""></option>
                     {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>

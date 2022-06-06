@@ -82,17 +82,17 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
                 <div>
                     <label>Kivun alkamisaika</label><br></br>
                     <input id="startdate" type="datetime-local" value={newStartTime} placeholder={changedLog.startTime}
-                    onChange={({ target }) => setNewStartTime(target.value)}/>
+                    onChange={({ target }) => setNewStartTime(target.value)} required/>
                 </div>
                 <div>
                     <label>Kivun loppumisaika</label><br></br>
                     <input id="enddate" type="datetime-local" value={newEndTime} placeholder={changedLog.endTime}
-                    onChange={({ target }) => setNewEndTime(target.value)}/>
+                    onChange={({ target }) => setNewEndTime(target.value)} required/>
                 </div>
                 <div>
                     <label>Kivun intensiteetti 1 - 10</label><br></br>
                     <input id="painintensity" type="number" value={newPainIntensity} placeholder={changedLog.painIntensity} min="1" max="10"
-                    onChange={({ target }) => setNewPainIntensity(target.value)}/>
+                    onChange={({ target }) => setNewPainIntensity(target.value)} required/>
                 </div>
                 <div>
                     <label>Lääkitys</label><br></br>
@@ -101,7 +101,7 @@ const PainlogEdit = ({ setEditPainlog, setPainlogs, painlogs, setMessage, setSho
                 </div>
                 <div>
                 <label>Kivun sijainti</label><br></br>
-                <select className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)}>
+                <select className='locationselect' value={newLocationId} onChange={e=>setNewLocationId(e.target.value)} required>
                     {locations.map(location => (<option key={location.locationId} value={location.locationId}> {location.locationId} {location.locationName} </option>))}
                 </select>
                 </div>

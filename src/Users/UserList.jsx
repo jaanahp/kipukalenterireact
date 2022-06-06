@@ -38,7 +38,10 @@ const UserList = () => {
                 setUserArray(data)
                 const filtered = userArray.filter(filtered => filtered.username === currentUser)
                 setUsers(filtered)
-            })
+            });
+            return () => {
+                cancel = true;
+            }
     }, [addUser, editUser, userArray, currentUser])
 
     const handleDeleteClick = id => {

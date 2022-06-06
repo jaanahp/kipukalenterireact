@@ -23,7 +23,6 @@ const UserAdd = ({ setAddUser, setUsers, users, setMessage, setShowMessage, setI
                 email: newEmail,
                 password: md5(newPassword),
             } 
-            console.log(newUser)
             
             UserService
                 .create(newUser)
@@ -59,7 +58,7 @@ const UserAdd = ({ setAddUser, setUsers, users, setMessage, setShowMessage, setI
                 <h4>Lisää käyttäjä</h4>
                 <div>
                 <input id="emailinput" type="text" value={newEmail} placeholder="Sähköposti" maxLength="250"
-                onChange={({ target }) => setNewEmail(target.value)} required />
+                onChange={({ target }) => setNewEmail(target.value)} />
                 </div>
                 <div>
                 <input id="userinput" type="text" value={newUserName} placeholder={"Käyttäjätunnus"} maxLength="20"

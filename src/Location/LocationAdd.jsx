@@ -50,7 +50,7 @@ const LocationAdd = ({ setAddLocation, setLocations, locations, setMessage, setS
                 <h4>Lisää sijainti</h4>
                 <div>
                 <input id="locationInput" type="text" value={newLocationName} placeholder="Kivun sijainti" maxLength="50"
-                onChange={handleChangeName} />
+                onChange={handleChangeName} required/>
                 </div>
                 <button id="cancellocadd" className="nappi1" onClick={() => setAddLocation(false)} style={{ background: 'red '}} title="Peruuta"><FontAwesomeIcon icon="far fa-window-close" /></button>
                 <button id="submitlocation" className="nappi" type="submit" style={{ background: 'green', marginLeft: '10px'}} title="Tallenna"><FontAwesomeIcon icon="far fa-check-square" /></button>

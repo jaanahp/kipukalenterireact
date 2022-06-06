@@ -60,7 +60,7 @@ const NoteAdd = ({ setAddNote, setNotes, notes, setMessage, setShowMessage, setI
                 <div>
                     <label>Päivämäärä</label><br></br>
                     <input id="notedate" type="datetime-local" value={newNoteDate}
-                    onChange={({ target }) => setNewNoteDate(target.value)}/>
+                    onChange={({ target }) => setNewNoteDate(target.value)} required/>
                 </div>
                 <div>
                 <input id="notetext" type="text" value={newNoteText} placeholder="Muistiinpano" maxLength="250"
